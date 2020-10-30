@@ -7,6 +7,8 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.We
 SCRIPT
 
 $script2 = <<-SCRIPT
+New-NetFirewallRule -DisplayName "Allow inbound ICMPv4" -Direction Inbound -Protocol ICMPv4 -IcmpType 8 -Action Allow
+New-NetFirewallRule -DisplayName "Allow inbound ICMPv6" -Direction Inbound -Protocol ICMPv6 -IcmpType 8 -Action Allow
 New-NetFirewallRule -DisplayName "Allow WinRm HTTP Port 5985" -Direction Inbound -LocalPort 5985 -Protocol TCP -Action Allow
 New-NetFirewallRule -DisplayName "Allow WinRm HTTP Port 5986" -Direction Inbound -LocalPort 5986 -Protocol TCP -Action Allow
 SCRIPT
