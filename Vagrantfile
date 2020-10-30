@@ -14,10 +14,9 @@ New-NetFirewallRule -DisplayName "Allow WinRm HTTPS Port 5986" -Direction Inboun
 SCRIPT
 
 $script3 = <<-SCRIPT
-$Installer7Zip = $env:TEMP + "\\" + "7z1900-x64.msi"
-Invoke-WebRequest "https://www.7-zip.org/a/7z1900-x64.exe" -OutFile $Installer7Zip
-msiexec /i $Installer7Zip /qb
-Remove-Item $Installer7Zip
+$Installer7Zip = $env:TEMP + "\\" + "7z1900-x64.msi";
+Invoke-WebRequest "https://www.7-zip.org/a/7z1900-x64.msi" -OutFile $Installer7Zip;
+msiexec /i $Installer7Zip /qb;
 SCRIPT
 
 Vagrant.configure("2") do |config|
@@ -33,9 +32,9 @@ Vagrant.configure("2") do |config|
         vb.memory = "2048"
     end
     
-    tfs.vm.provision "shell", privileged: "true", powershell_elevated_interactive: "true", inline: $script
-    tfs.vm.provision "shell", privileged: "true", powershell_elevated_interactive: "true", inline: $script2
-    tfs.vm.provision "shell", privileged: "true", powershell_elevated_interactive: "true", inline: $script3
+    #tfs.vm.provision "shell", privileged: "true", powershell_elevated_interactive: "true", inline: $script
+    #tfs.vm.provision "shell", privileged: "true", powershell_elevated_interactive: "true", inline: $script2
+    #tfs.vm.provision "shell", privileged: "true", powershell_elevated_interactive: "true", inline: $script3
     
     #tfs.vm.provision "ansible" do |ansible|
     #    ansible.compatibility_mode = "2.0"
