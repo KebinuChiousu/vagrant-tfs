@@ -13,6 +13,13 @@ New-NetFirewallRule -DisplayName "Allow WinRm HTTP Port 5985" -Direction Inbound
 New-NetFirewallRule -DisplayName "Allow WinRm HTTPS Port 5986" -Direction Inbound -LocalPort 5986 -Protocol TCP -Action Allow
 SCRIPT
 
+$script3 = <<-SCRIPT
+$Installer7Zip = $env:TEMP + "\\" + "7z1900-x64.msi"
+Invoke-WebRequest "https://www.7-zip.org/a/7z1900-x64.exe" -OutFile $Installer7Zip
+msiexec /i $Installer7Zip /qb
+Remove-Item $Installer7Zip
+SCRIPT
+
 Vagrant.configure("2") do |config|
 
   config.vm.define "tfs" do |tfs|
@@ -28,6 +35,7 @@ Vagrant.configure("2") do |config|
     
     tfs.vm.provision "shell", privileged: "true", powershell_elevated_interactive: "true", inline: $script
     tfs.vm.provision "shell", privileged: "true", powershell_elevated_interactive: "true", inline: $script2
+    tfs.vm.provision "shell", privileged: "true", powershell_elevated_interactive: "true", inline: $script3
     
     #tfs.vm.provision "ansible" do |ansible|
     #    ansible.compatibility_mode = "2.0"
